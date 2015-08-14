@@ -1,0 +1,12 @@
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.csprojResolveAssemblyReference.cache
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\LicenseService.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\LicenseService.pdb
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\FluentNHibernate.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\Iesi.Collections.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\NHibernate.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\FluentNHibernate.pdb
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\FluentNHibernate.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\Iesi.Collections.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\NHibernate.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.pdb
