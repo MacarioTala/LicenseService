@@ -7,12 +7,14 @@ namespace LicenseService
     {
         public virtual Int32 ProductId { get; protected set; }
 
-        public virtual String Description { get; protected set; }
-        public virtual Int32 DistributionType { get; protected set; }
-        public virtual Boolean IsSingleUser { get; protected set; }
-        public virtual Int32 LicenseMode { get; protected set; }
-        public virtual DateTime? ModifiedDateTime { get; protected set; }
-        public virtual Int32 NumberOfMonths { get; protected set; }
-        public virtual String ProductName { get; protected set; }
+        public virtual String Description { get; set; }
+        public virtual Int32 DistributionType { get; set; }
+        public virtual Boolean IsSingleUser { get; set; }
+        public virtual Int32 LicenseMode { get; set; }
+        public virtual DateTime? ModifiedDateTime { get; set; }
+        public virtual Int32 NumberOfMonths { get; set; }
+        public virtual String ProductName { get; set; }
+
+        public virtual IList<License> License { get; set; }
      }
 }

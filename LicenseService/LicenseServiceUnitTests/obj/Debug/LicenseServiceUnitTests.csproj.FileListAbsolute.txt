@@ -12,3 +12,5 @@ C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\obj
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\obj\Debug\LicenseServiceUnitTests.pdb
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\LicenseService.dll
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\LicenseService.pdb
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\nunit.framework.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\nunit.framework.xml

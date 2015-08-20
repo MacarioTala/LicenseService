@@ -52,6 +52,7 @@
     <Compile Include="Entities\Feature.cs" />
     <Compile Include="Entities\NavOrder.cs" />
     <Compile Include="ErrorGuids.cs" />
+    <Compile Include="Extensions\LicenseServiceListExtensions.cs" />
     <Compile Include="Extensions\NavOrderExtensions.cs" />
     <Compile Include="Repositories\ILicenseRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
