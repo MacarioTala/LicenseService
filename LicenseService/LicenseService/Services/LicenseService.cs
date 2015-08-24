@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicenseService.Entities;
 
 namespace LicenseService.Services
 {
@@ -41,6 +42,11 @@ namespace LicenseService.Services
           List<ProductOrder> products)
         {
            throw new NotImplementedException();
+        }
+
+        public LicenseMessage[] LicenseImport(NavOrder navOrder)
+        {
+            throw new NotImplementedException();
         }
 
         private static void AssignDefaultLicenseKeys(IEnumerable<ProductOrder> products)

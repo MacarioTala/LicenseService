@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using LicenseService.UOW;
 using NHibernate;
 using NHibernate.Linq;
@@ -22,10 +23,6 @@ namespace LicenseService.Repositories
            throw new NotImplementedException();
        }
 
-       public List<License> GetConcurrentLicenses()
-       {
-           throw new NotImplementedException();
-       }
 
        public License GetLicenseByLicenseKey(string licensekey)
        {
@@ -33,6 +30,16 @@ namespace LicenseService.Repositories
 
            if (resultList.Count() > 1) { throw new Exception("LicenseKey is not Unique!");}
            return resultList.FirstOrDefault();
+       }
+
+       public List<License> GetLicensesByLicenseKeys(List<string> licenseKeys)
+       {
+           return Session.Query<License>().Where(x => licenseKeys.Contains(x.LicenseKey)).ToList();
+       }
+
+       public void SaveLicense(License license)
+       {
+           Session.SaveOrUpdate(license);
        }
     }
 }

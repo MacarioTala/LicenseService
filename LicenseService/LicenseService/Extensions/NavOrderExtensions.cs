@@ -9,7 +9,17 @@ namespace LicenseService.Extensions
 {
     public static class NavOrderExtensions
     {
-        
+
+        internal static List<LicenseMessage> DoProductsInOrderExist()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static List<LicenseMessage> DoProductsInOrderHaveValidExpirationDates()
+        {
+            throw new NotImplementedException();
+        }
+
         internal static LicenseMessage IsOrderNumberNullOrEmpty(this NavOrder order)
         {
             return string.IsNullOrEmpty(order.OrderNumber)
@@ -90,10 +100,10 @@ namespace LicenseService.Extensions
                 }).ToList();
         }
 
-        internal static List<LicenseMessage> DoesLicenseKeyExistForUpdate(this NavOrder order, List<string> licenseKeys)
+        internal static List<LicenseMessage> DoesLicenseKeyExistForUpdate(this NavOrder order, List<License> existingLicenses)
         {
             return (from productOrder in order.ProductOrders
-                    where !licenseKeys.Contains(productOrder.LicenseKey)
+                    where !existingLicenses.GetLicenseKeysFromLicenseList().Contains(productOrder.LicenseKey)
                     select new LicenseMessage
                     {
                         Code = ErrorGuids.LicenseKeyDoesntExist
@@ -129,7 +139,7 @@ namespace LicenseService.Extensions
             return returnMessageList;
         }
 
-        internal static List<LicenseMessage> ValidateOrdersForNewLicense(this NavOrder order, List<string> existingLicenseList )
+        internal static List<LicenseMessage> ValidateOrderForNewLicense(this NavOrder order, List<string> existingLicenseList )
         {
             var returnMessageList = new List<LicenseMessage>();
 
@@ -146,19 +156,39 @@ namespace LicenseService.Extensions
             return returnMessageList;
         }
 
-
         internal static List<LicenseMessage> DoExistingUsersExceedUsersInOrder(this NavOrder order,
-            Dictionary<string,int> usersPerLicenceKey)
+            List<License> existingLicenses )
         {
             return (from productOrder in order.ProductOrders
-                from licenseKeyItem in usersPerLicenceKey
-                where licenseKeyItem.Value > productOrder.NumberOfUsers
+                from existingLicense in existingLicenses
+                where productOrder.LicenseKey == existingLicense.LicenseKey && productOrder.NumberOfUsers < existingLicense.NumberOfUsers
                 select new LicenseMessage
                 {
-                    Code = ErrorGuids.NumberOfAssignedUsersExceedsLicensedUsersInOrderGuid, 
-                    Message = "Current number of assigned users for license: " + licenseKeyItem.Key + "exceeds number of users(" + licenseKeyItem.Value + ") in order."
-                    , Severity = (int) MessageStateEnum.Error
+                    Code = ErrorGuids.NumberOfAssignedUsersExceedsLicensedUsersInOrderGuid, Message = "Current number of assigned users for license: " + existingLicense.LicenseKey + "exceeds number of users(" + existingLicense.NumberOfUsers + ") in order.", Severity = (int) MessageStateEnum.Error
                 }).ToList();
+        }
+
+        internal static List<LicenseMessage> DoOrderNumbersMatchExistingLicenseOrderNumbers(this NavOrder order,
+            List<License> licenses)
+        {
+            return (from productOrder in order.ProductOrders
+                from license in licenses
+                where productOrder.LicenseKey == license.LicenseKey && order.OrderNumber != license.OrderNumber
+                select new LicenseMessage
+                {
+                    Code = ErrorGuids.OrderNumberDoesntMatchGuid, Message = "License Key:" + license.LicenseKey + " does not match current order number(" + order.OrderNumber + ")", Severity = (int) MessageStateEnum.Error
+                }).ToList();
+        }
+
+        internal static List<LicenseMessage> ValidateUpdateOrder(this NavOrder order, List<License> existingLicenses)
+        {
+            var returnMessageList = new List<LicenseMessage>();
+            
+            returnMessageList.AddRange(order.DoesLicenseKeyExistForUpdate(existingLicenses));
+            returnMessageList.AddRange(order.DoExistingUsersExceedUsersInOrder(existingLicenses));
+            returnMessageList.AddRange(order.DoOrderNumbersMatchExistingLicenseOrderNumbers(existingLicenses));
+            
+            return returnMessageList;
         }
     }
 }

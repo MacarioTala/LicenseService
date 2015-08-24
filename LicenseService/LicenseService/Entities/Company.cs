@@ -22,18 +22,14 @@ namespace LicenseService
 
         public Company()
         {
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor - NHibernate's one-to-many relationship mappings do not work unless we do this.
             CompanyId = Guid.Empty;
 
             Licenses = new List<License>();
             Locations = new List<Location>();
             UserData = new List<UserData>();
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
-    }
-
-    public class UserData
-    {
-        UserData()
-        { throw new NotImplementedException();}
     }
 
     public class Location

@@ -66,9 +66,9 @@ namespace LicenseServiceUnitTests
             const string testLicenseKey = "ExistingLicense";
             const string nonPresentLicenseKey = "NonExistingLicense";
             var expected = ErrorGuids.LicenseKeyDoesntExist;
-            var keysToPassIn = new List<string>() {nonPresentLicenseKey};
+            var existingLicenses = new List<License>() {new License{LicenseKey = nonPresentLicenseKey}};
             x.ProductOrders.Add(new ProductOrder { LicenseKey = testLicenseKey });
-            var query = x.DoesLicenseKeyExistForUpdate(keysToPassIn);
+            var query = x.DoesLicenseKeyExistForUpdate(existingLicenses);
             var actual = IsExpectedErrorGuidInQueryResults(query, expected);
 
             Assert.IsTrue(actual.Any());
@@ -132,7 +132,7 @@ namespace LicenseServiceUnitTests
             navOrderUnderTest.ProductOrders.Add(new ProductOrder{ExpirationDate = DateTime.Now});
 
             var existingLicenses = new List<string>();
-            var query = navOrderUnderTest.ValidateOrdersForNewLicense(existingLicenses);
+            var query = navOrderUnderTest.ValidateOrderForNewLicense(existingLicenses);
 
             var actual = IsExpectedErrorGuidInQueryResults(query, expected);
             Assert.IsTrue(actual.Any());
@@ -151,7 +151,7 @@ namespace LicenseServiceUnitTests
             navOrderUnderTest.ProductOrders.Add(new ProductOrder{ExpirationDate = DateTime.Now,LicenseKey =existingLicenseName});
             var existingLicenses = new List<string> {existingLicenseName};
 
-            var query = navOrderUnderTest.ValidateOrdersForNewLicense(existingLicenses);
+            var query = navOrderUnderTest.ValidateOrderForNewLicense(existingLicenses);
 
             var actualFirstCondition = IsExpectedErrorGuidInQueryResults(query, expectedError1);
             var actualSecondCondition = IsExpectedErrorGuidInQueryResults(query, expectedError2);
@@ -165,15 +165,84 @@ namespace LicenseServiceUnitTests
             var navOrderUnderTest = new NavOrder();
             const string existingLicenseKey = "ExistingLicenseKey";
             navOrderUnderTest.ProductOrders.Add(new ProductOrder { ExpirationDate = DateTime.Now, LicenseKey = existingLicenseKey,NumberOfUsers = 10});   
-            var existingLicenseDictionary = new Dictionary<string, int> {{existingLicenseKey, 111}};
+            var existingLicenses = new List<License> {new License{LicenseKey = existingLicenseKey, NumberOfUsers = 111}};
             var expected = ErrorGuids.NumberOfAssignedUsersExceedsLicensedUsersInOrderGuid;
 
-            var query=navOrderUnderTest.DoExistingUsersExceedUsersInOrder(existingLicenseDictionary);
+            var query=navOrderUnderTest.DoExistingUsersExceedUsersInOrder(existingLicenses);
 
             var actual = IsExpectedErrorGuidInQueryResults(query, expected);
 
             Assert.IsTrue(actual.Any());
         }
 
+        [Test]
+        public void
+            DoOrderNumbersMatchExistingLicenseOrderNumbersReturnsErrorIfExistingLicensesHaveDifferentOrderNumbers()
+        {
+            const string firstExistingKey = "firstExistingLicenseKey";
+            const string nextExistingKey = "nextExistingLicenseKey";
+            const string lastExistingKey = "lastExistingLicenseKey";
+            const string firstExistingOrderNumber = "1234";
+            const string someOtherOrderNumber = "8888";
+            var expected = ErrorGuids.OrderNumberDoesntMatchGuid;
+            var existingLicenseList = new List<License>
+            {
+                new License{LicenseKey = firstExistingKey, OrderNumber = firstExistingOrderNumber},
+                new License{LicenseKey = nextExistingKey, OrderNumber = firstExistingOrderNumber},
+                new License{LicenseKey = lastExistingKey, OrderNumber = someOtherOrderNumber}
+            };
+
+            IList<ProductOrder> productOrdersUnderTest = new List<ProductOrder>{
+                
+                    new ProductOrder{LicenseKey = firstExistingKey},
+                    new ProductOrder{LicenseKey = nextExistingKey},
+                    new ProductOrder{LicenseKey = lastExistingKey},
+                };
+            var orderUnderTest = new NavOrder
+            {
+                OrderNumber = firstExistingOrderNumber,
+                ProductOrders = productOrdersUnderTest
+            };
+
+
+            var query = orderUnderTest.DoOrderNumbersMatchExistingLicenseOrderNumbers(existingLicenseList);
+            var actual = IsExpectedErrorGuidInQueryResults(query, expected);
+
+            Assert.IsTrue(actual.Any());
+        }
+
+        [Test]
+        public void
+            DoOrderNumbersMatchExistingLicenseOrderNumbersReturnsNullIfExistingLicensesHaveSameOrderNumbers()
+        {
+            const string firstExistingKey = "firstExistingLicenseKey";
+            const string nextExistingKey = "nextExistingLicenseKey";
+            const string firstExistingOrderNumber = "1234";
+            var expected = ErrorGuids.OrderNumberDoesntMatchGuid;
+            var existingLicenseList = new List<License>
+            {
+                new License{LicenseKey = firstExistingKey, OrderNumber = firstExistingOrderNumber},
+                new License{LicenseKey = nextExistingKey, OrderNumber = firstExistingOrderNumber},
+            };
+
+            IList<ProductOrder> productOrdersUnderTest = new List<ProductOrder>{
+                
+                    new ProductOrder{LicenseKey = firstExistingKey},
+                    new ProductOrder{LicenseKey = nextExistingKey}
+                };
+            var orderUnderTest = new NavOrder
+            {
+                OrderNumber = firstExistingOrderNumber,
+                ProductOrders = productOrdersUnderTest
+            };
+
+
+            var query = orderUnderTest.DoOrderNumbersMatchExistingLicenseOrderNumbers(existingLicenseList);
+            var actual = IsExpectedErrorGuidInQueryResults(query, expected);
+
+            Assert.IsTrue(!actual.Any());
+        }
+
+        
     }
 }

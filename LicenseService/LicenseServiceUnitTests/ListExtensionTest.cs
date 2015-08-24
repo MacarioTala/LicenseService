@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LicenseService;
 using LicenseService.Extensions;
 using NUnit.Framework;
 
@@ -32,6 +33,27 @@ namespace LicenseServiceUnitTests
             listUnderTest.AddIfNotNull(itemUnderTest);
 
             Assert.IsFalse(listUnderTest.Contains(itemUnderTest));
+        }
+
+        [Test]
+        public void GetLicenseKeysFromLicenseListReturnsListOfLicenseKeys()
+        {
+            const string existingLicenseKey = "existingLicenseKey";
+            const string nextLicenseKey = "nextLicenseKey";
+            const string lastLicenseKey = "lastLicenseKey";
+
+            var expected = new List<string> {existingLicenseKey, nextLicenseKey, lastLicenseKey};
+
+            var listUnderTest = new List<License>
+            {
+                new License{LicenseKey = existingLicenseKey},
+                new License{LicenseKey = nextLicenseKey},
+                new License{LicenseKey = lastLicenseKey},
+            };
+
+            var actual = listUnderTest.GetLicenseKeysFromLicenseList();
+
+            Assert.AreEqual(expected,actual);
         }
     }
 

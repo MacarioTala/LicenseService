@@ -51,9 +51,11 @@
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\Feature.cs" />
     <Compile Include="Entities\NavOrder.cs" />
+    <Compile Include="Entities\UserData.cs" />
     <Compile Include="ErrorGuids.cs" />
     <Compile Include="Extensions\LicenseServiceListExtensions.cs" />
     <Compile Include="Extensions\NavOrderExtensions.cs" />
+    <Compile Include="Mappings\LicenseMap.cs" />
     <Compile Include="Repositories\ILicenseRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="UOW\IUnitofWork.cs" />
@@ -72,6 +74,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

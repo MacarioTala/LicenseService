@@ -21,13 +21,17 @@ namespace LicenseService
         public virtual Boolean Used { get; set; }
         public virtual Company Company { get; set; }
         public virtual LicenseModeEnum LicenseMode { get; set; }
-        
+        public virtual IList<UserData> Users { get; set; }
+
         public virtual IList<Feature> LicenseModules { get; set; }
         
             
         public License()
         {
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor - NHibernate's one-to-many relationship mappings do not work unless we do this.
             LicenseModules = new List<Feature>();
+            Users = new List<UserData>();
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
     }
 }
