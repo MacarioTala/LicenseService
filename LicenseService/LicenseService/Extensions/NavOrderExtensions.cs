@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using LicenseService.Constants;
 using LicenseService.Entities;
+using LicenseService.Enums;
 
 [assembly: InternalsVisibleTo("LicenseServiceUnitTests")]
 namespace LicenseService.Extensions
 {
+    ///TODO: Todo Date:20150824
+    /// If the todo date has passed, we've lost
+    /// All of these need to throw exceptions instead of returning LicenseMessages. We're currently not storing these anyway.
+    
     public static class NavOrderExtensions
     {
 
@@ -161,7 +167,7 @@ namespace LicenseService.Extensions
         {
             return (from productOrder in order.ProductOrders
                 from existingLicense in existingLicenses
-                where productOrder.LicenseKey == existingLicense.LicenseKey && productOrder.NumberOfUsers < existingLicense.NumberOfUsers
+                where productOrder.LicenseKey == existingLicense.LicenseKey && productOrder.NumberOfUsers < existingLicense.Users.Count
                 select new LicenseMessage
                 {
                     Code = ErrorGuids.NumberOfAssignedUsersExceedsLicensedUsersInOrderGuid, Message = "Current number of assigned users for license: " + existingLicense.LicenseKey + "exceeds number of users(" + existingLicense.NumberOfUsers + ") in order.", Severity = (int) MessageStateEnum.Error
@@ -189,6 +195,34 @@ namespace LicenseService.Extensions
             returnMessageList.AddRange(order.DoOrderNumbersMatchExistingLicenseOrderNumbers(existingLicenses));
             
             return returnMessageList;
+        }
+
+        public static List<LicenseMessage> ValidateThis(this NavOrder order, List<License> licensesInOrder)
+        {
+            var returnMessages = new List<LicenseMessage>();
+            if (order.IsActionValid() == null)
+            {
+                returnMessages.Add(order.IsActionValid());
+                return returnMessages;
+            }
+            
+            returnMessages.Add(order.IsProductOrdersEmpty());
+            returnMessages.Add(order.IsOrderNumberGreaterThan20());
+            returnMessages.AddRange(order.DoesNumberOfUsersExceed5000());
+            returnMessages.Add(order.IsOrderNumberNullOrEmpty());
+            returnMessages.Add(order.IsProductOrdersEmpty());
+            returnMessages.AddRange(order.AreThereEmptyLicenseKeys());    
+
+            if (order.Action == (int) ActionEnum.Create)
+            {
+                order.ValidateOrderForNewLicense(licensesInOrder.GetLicenseKeysFromLicenseList());
+            }
+            else
+            {
+                order.ValidateUpdateOrder(licensesInOrder);
+            }
+
+            return returnMessages;
         }
     }
 }

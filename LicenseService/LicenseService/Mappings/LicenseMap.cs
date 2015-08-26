@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using LicenseService.Entities;
 
 namespace LicenseService.Mappings
 {
@@ -16,7 +17,7 @@ namespace LicenseService.Mappings
             Map(x => x.Active);
             Map(x => x.EulaAccepted)
                 .Column("EULAAccepted");
-            Map(x => x.ExpirationDate);
+      
             Map(x => x.Internal);
             Map(x => x.LicenseKey).Unique();//Changing this to be unique
             Map(x => x.LineNumber);
@@ -25,10 +26,7 @@ namespace LicenseService.Mappings
             Map(x => x.OrderNumber);
             Map(x => x.Used);
 
-            References(x => x.LicenseMode)
-                .Column("LicenseModeId")
-                .Fetch.Select()
-                .LazyLoad();
+           // removed license mode, expiration date
 
             References(x => x.Company)
                 .Column("CompanyId")
@@ -39,12 +37,7 @@ namespace LicenseService.Mappings
 
             // Removing Concept of LicenseGroups
 
-            HasMany(x => x.LicenseModules)
-                .KeyColumn("LicenseId")
-                .Cascade.AllDeleteOrphan()
-                .Inverse()
-                .Fetch.Select()
-                .LazyLoad();
+           // removing license module
         }
     }
 }

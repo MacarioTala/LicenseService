@@ -48,14 +48,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\SuccessGuids.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\Feature.cs" />
+    <Compile Include="Entities\LicensePackage.cs" />
     <Compile Include="Entities\NavOrder.cs" />
+    <Compile Include="Enums\RegulationEnum.cs" />
     <Compile Include="Entities\UserData.cs" />
-    <Compile Include="ErrorGuids.cs" />
+    <Compile Include="Constants\ErrorGuids.cs" />
+    <Compile Include="Enums\ActionEnum.cs" />
     <Compile Include="Extensions\LicenseServiceListExtensions.cs" />
     <Compile Include="Extensions\NavOrderExtensions.cs" />
     <Compile Include="Mappings\LicenseMap.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ICompanyRepository.cs" />
     <Compile Include="Repositories\ILicenseRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="UOW\IUnitofWork.cs" />
@@ -72,7 +82,12 @@
     <Compile Include="UOW\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

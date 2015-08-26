@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LicenseService;
+using LicenseService.Entities;
 using LicenseService.Extensions;
 using NUnit.Framework;
 

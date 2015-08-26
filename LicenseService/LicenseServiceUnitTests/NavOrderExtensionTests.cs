@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LicenseService;
+using LicenseService.Constants;
 using LicenseService.Entities;
 using LicenseService.Extensions;
 using NUnit.Framework;
@@ -164,8 +165,14 @@ namespace LicenseServiceUnitTests
         {
             var navOrderUnderTest = new NavOrder();
             const string existingLicenseKey = "ExistingLicenseKey";
-            navOrderUnderTest.ProductOrders.Add(new ProductOrder { ExpirationDate = DateTime.Now, LicenseKey = existingLicenseKey,NumberOfUsers = 10});   
-            var existingLicenses = new List<License> {new License{LicenseKey = existingLicenseKey, NumberOfUsers = 111}};
+            navOrderUnderTest.ProductOrders.Add(new ProductOrder { ExpirationDate = DateTime.Now, LicenseKey = existingLicenseKey,NumberOfUsers = 1});   
+            var existingUsers = new List<UserData>{
+                    new UserData{UserId = new Guid()},
+                    new UserData{UserId = new Guid()},
+                    new UserData{UserId = new Guid()},
+                };
+            
+            var existingLicenses = new List<License> {new License{LicenseKey = existingLicenseKey,Users = existingUsers}};
             var expected = ErrorGuids.NumberOfAssignedUsersExceedsLicensedUsersInOrderGuid;
 
             var query=navOrderUnderTest.DoExistingUsersExceedUsersInOrder(existingLicenses);
@@ -243,6 +250,40 @@ namespace LicenseServiceUnitTests
             Assert.IsTrue(!actual.Any());
         }
 
-        
+        [Test]
+        public void ValidateUpdateOrderCatchesMissingLicensesWhenOtherIssuesAreNotPresent()
+        {
+            var navOrderUnderTest = new NavOrder();
+            const string testLicenseKey = "ExistingLicense";
+            const string nonPresentLicenseKey = "NonExistingLicense";
+            var expected = ErrorGuids.LicenseKeyDoesntExist;
+            var existingLicenses = new List<License>() { new License { LicenseKey = nonPresentLicenseKey } };
+            navOrderUnderTest.ProductOrders.Add(new ProductOrder { LicenseKey = testLicenseKey });
+
+            var query = navOrderUnderTest.ValidateUpdateOrder(existingLicenses);
+            var actual = IsExpectedErrorGuidInQueryResults(query, expected);
+            
+            Assert.IsTrue(actual.Any());
+
+        }
+
+        [Test]
+        public void ValidateUpdateOrderCatchesMismatchedOrderNumbersWhenOtherIssuesAreNotPresent()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void ValidateUpdateOrderCatchesWhenCurrentAssignedUsersExceedOrderUsersWhenOtherIssuesAreNotPresent()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void ValidateUpdateOrderCatchesMissingLicensesWhenOtherIssuesArePresent()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

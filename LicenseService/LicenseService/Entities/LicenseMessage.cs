@@ -19,7 +19,13 @@ namespace LicenseService
         public string Message { get; set; }
 
         /// <summary>
-        /// Values to be inserted into message
+        /// This is where we put the license keys and what products they belong to.
+        /// The format is:
+        /// string LicenseKey
+        /// string ProductName
+        /// string URL
+        /// TODO: 20150825: When we have leeway over changing Nav, we should change this to the LicensePackage class
+        /// and remove the extension method there that changes things into a string array.
         /// </summary>
         public string[] MessageValues { get; set; }
 

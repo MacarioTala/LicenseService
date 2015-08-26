@@ -1,4 +1,6 @@
-﻿namespace LicenseService
+﻿using LicenseService.Entities;
+
+namespace LicenseService.Repositories
 {
     public interface IProductRepository
     {

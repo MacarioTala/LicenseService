@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LicenseService
+namespace LicenseService.Entities
 {
     public class Product
     {
@@ -15,6 +15,11 @@ namespace LicenseService
         public virtual Int32 NumberOfMonths { get; set; }
         public virtual String ProductName { get; set; }
 
-        public virtual IList<License> License { get; set; }
+        public virtual IList<License> Licenses { get; set; }
+
+        public Product()
+        {
+            Licenses = new List<License>();
+        }
      }
 }
