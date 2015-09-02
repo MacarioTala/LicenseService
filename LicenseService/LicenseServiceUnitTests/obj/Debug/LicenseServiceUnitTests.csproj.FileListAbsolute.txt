@@ -14,3 +14,13 @@ C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\obj\Debug\LicenseServiceUnitTests.csprojResolveAssemblyReference.cache
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\obj\Debug\LicenseServiceUnitTests.dll
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\obj\Debug\LicenseServiceUnitTests.pdb
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Autofac.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Autofac.Integration.WebApi.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Newtonsoft.Json.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\System.Net.Http.Formatting.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\System.Web.Http.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Autofac.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Autofac.Integration.WebApi.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\Newtonsoft.Json.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\System.Net.Http.Formatting.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseServiceUnitTests\bin\Debug\System.Web.Http.xml

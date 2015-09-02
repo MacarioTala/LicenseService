@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -68,6 +71,8 @@
     <Compile Include="Repositories\ICompanyRepository.cs" />
     <Compile Include="Repositories\ILicenseRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
+    <Compile Include="Services\CompanyService.cs" />
+    <Compile Include="Services\ILicenseService.cs" />
     <Compile Include="UOW\IUnitofWork.cs" />
     <Compile Include="Entities\LicenseMessage.cs" />
     <Compile Include="Enums\LicenseModeEnum.cs" />

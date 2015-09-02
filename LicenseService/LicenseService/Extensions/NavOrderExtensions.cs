@@ -11,7 +11,8 @@ namespace LicenseService.Extensions
 {
     ///TODO: Todo Date:20150824
     /// If the todo date has passed, we've lost
-    /// All of these need to throw exceptions instead of returning LicenseMessages. We're currently not storing these anyway.
+    /// 1.) All of these need to throw exceptions instead of returning LicenseMessages. We're currently not storing these anyway.
+    /// 2.) Would really like to make the internals private. Not sure how to do that AND maintain unit test coverage
     
     public static class NavOrderExtensions
     {

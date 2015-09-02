@@ -9,7 +9,7 @@ using LicenseService.Repositories;
 
 namespace LicenseService.Services
 {
-    public class LicenseService
+    public class LicenseService : ILicenseService
     {
         private readonly ILicenseRepository _licenseRepository;
         private readonly ICompanyRepository _companyRepository;

@@ -10,3 +10,6 @@ C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\Ie
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\NHibernate.xml
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.dll
 C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.pdb
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\Autofac.dll
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\bin\Debug\Autofac.xml
+C:\Prototypes\LicenseServicePrototype\LicenseService\LicenseService\obj\Debug\LicenseService.csprojResolveAssemblyReference.cache
